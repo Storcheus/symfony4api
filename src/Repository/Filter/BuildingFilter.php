@@ -1,64 +1,45 @@
 <?php
 
 
-namespace App\Entity;
+namespace App\Repository\Filter;
 
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- *
- * @ORM\Entity(repositoryClass="App\Repository\BuildingRepository")
- * @ORM\Table(name="building")
- */
-class Building
+class BuildingFilter
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
-     * @ORM\Column(type="string", length=100)
-     *
+    /*
+     * var string
      */
     private $name;
-    /**
-     * @ORM\Column(type="decimal", scale=2)
-     *
-     */
-    private $price;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     *
+     * var decimal
+     */
+    private $minPrice;
+
+    /**
+     * var decimal
+     */
+    private $maxPrice;
+
+    /**
+     * var integer
      */
     private $bedrooms;
+
     /**
-     * @ORM\Column(type="integer")
-     *
+     * var integer
      */
     private $bathrooms;
 
     /**
-     * @ORM\Column(type="integer")
-     *
+     * var integer
      */
     private $storeys;
+
     /**
-     * @ORM\Column(type="integer")
-     *
+     * var integer
      */
     private $garages;
-
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return mixed
@@ -70,7 +51,7 @@ class Building
 
     /**
      * @param mixed $name
-     * @return Building
+     * @return BuildingFilter
      */
     public function setName($name)
     {
@@ -82,21 +63,37 @@ class Building
     /**
      * @return mixed
      */
-    public function getPrice()
+    public function getMinPrice()
     {
-        return $this->price;
+        return $this->minPrice;
     }
 
     /**
-     * @param mixed $price
-     * @return Building
+     * @param mixed $minPrice
+     * @return BuildingFilter
      */
-    public function setPrice($price)
+    public function setMinPrice($minPrice)
     {
-        if (ctype_digit($price))
-            $this->price = doubleval($price);
-        else
-            $this->price = 0;
+        $this->minPrice = $minPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaxPrice()
+    {
+        return $this->maxPrice;
+    }
+
+    /**
+     * @param mixed $maxPrice
+     * @return BuildingFilter
+     */
+    public function setMaxPrice($maxPrice)
+    {
+        $this->maxPrice = $maxPrice;
 
         return $this;
     }
@@ -111,7 +108,7 @@ class Building
 
     /**
      * @param mixed $bedrooms
-     * @return Building
+     * @return BuildingFilter
      */
     public function setBedrooms($bedrooms)
     {
@@ -130,7 +127,7 @@ class Building
 
     /**
      * @param mixed $bathrooms
-     * @return Building
+     * @return BuildingFilter
      */
     public function setBathrooms($bathrooms)
     {
@@ -149,7 +146,7 @@ class Building
 
     /**
      * @param mixed $storeys
-     * @return Building
+     * @return BuildingFilter
      */
     public function setStoreys($storeys)
     {
@@ -168,7 +165,7 @@ class Building
 
     /**
      * @param mixed $garages
-     * @return Building
+     * @return BuildingFilter
      */
     public function setGarages($garages)
     {
