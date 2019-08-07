@@ -60,14 +60,6 @@ class Building
     }
 
     /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return mixed
      */
     public function getName()
@@ -77,10 +69,13 @@ class Building
 
     /**
      * @param mixed $name
+     * @return Building
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -93,10 +88,16 @@ class Building
 
     /**
      * @param mixed $price
+     * @return Building
      */
     public function setPrice($price)
     {
-        $this->price = $price;
+        if (ctype_digit($price))
+            $this->price = doubleval($price);
+        else
+            $this->price = 0;
+
+        return $this;
     }
 
     /**
@@ -109,10 +110,13 @@ class Building
 
     /**
      * @param mixed $bedrooms
+     * @return Building
      */
-    public function setBedrooms($bedrooms): void
+    public function setBedrooms($bedrooms)
     {
         $this->bedrooms = $bedrooms;
+
+        return $this;
     }
 
     /**
@@ -125,10 +129,13 @@ class Building
 
     /**
      * @param mixed $bathrooms
+     * @return Building
      */
     public function setBathrooms($bathrooms)
     {
         $this->bathrooms = $bathrooms;
+
+        return $this;
     }
 
     /**
@@ -141,10 +148,13 @@ class Building
 
     /**
      * @param mixed $storeys
+     * @return Building
      */
     public function setStoreys($storeys)
     {
         $this->storeys = $storeys;
+
+        return $this;
     }
 
     /**
@@ -157,9 +167,12 @@ class Building
 
     /**
      * @param mixed $garages
+     * @return Building
      */
     public function setGarages($garages)
     {
         $this->garages = $garages;
+
+        return $this;
     }
 }
