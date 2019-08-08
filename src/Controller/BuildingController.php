@@ -35,7 +35,7 @@ class BuildingController extends FOSRestController
      *
      * @return JsonResponse
      */
-    public function searchBuildingAction(Request $request)
+    public function searchAction(Request $request)
     {
         $buildingFilter = new BuildingFilter();
 

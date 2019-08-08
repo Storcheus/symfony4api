@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.skin.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.min.js"></script>
+</head>
+
+
+<div class="row">
+    <div class="offset-1 col-md-5">
+        <form action="#" method="get" id="myform">
+            <div class="form-group">
+                <label class="control-label"><b>Name</b></label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name">
+            </div>
+
+            <div class="form-group price">
+                <label for="price" class="control-label"><b>Price(min, max)</b></label>
+                <input type="text" id="price">
+            </div>
+
+            <div class="form-group bathrooms">
+                <label for="bathrooms" class=" control-label"><b>Bathrooms</b></label>
+                <input type="text" id="bathrooms">
+            </div>
+
+            <div class="form-group bedrooms">
+                <label for="bedrooms" class=" control-label"><b>Bedrooms</b></label>
+                <input type="text" id="bedrooms">
+            </div>
+
+            <div class="form-group storeys">
+                <label for="storeys" class=" control-label"><b>Storeys</b></label>
+                <input type="text" id="storeys">
+            </div>
+
+            <div class="form-group garages">
+                <label for="garages" class=" control-label"><b>Garages</b></label>
+                <input type="text" id="garages">
+            </div>
+
+            <button type="submit"  class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <div class="col-md-5" >
+        <div id="result">
+            <table class="table">
+                <thead>
+                    <th>Name</th><th>Price</th><th>Bedrooms</th><th>Bathrooms</th><th>Storeys</th><th>Garage</th>
+                </thead>
+                <tbody id="table1">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#bedrooms").ionRangeSlider({
+            min: 0,
+            max: 5,
+            from: 4
+        });
+
+        $("#bathrooms").ionRangeSlider({
+            min: 0,
+            max: 5,
+            from: 2
+        });
+
+        $("#garages").ionRangeSlider({
+            min: 0,
+            max: 5,
+            from: 2
+        });
+
+        $("#storeys").ionRangeSlider({
+            min: 0,
+            max: 5,
+            from: 2
+        });
+        $("#price").ionRangeSlider({
+            type: "double",
+            grid: true,
+            min: 0,
+            max: 600000,
+            from: 350000,
+            to: 450000,
+        });
+
+        $("form#myform").submit(function(event) {
+            var name = $("#name").val();
+            var minPrice = $("div.price").find("span.irs-from").attr('visibility', 'visible').text().replace(" ", "");
+            var maxPrice = $("div.price").find("span.irs-to").attr('visibility', 'visible').text().replace(" ", "");
+            var bedrooms = $("div.bedrooms").find("span.irs-single").text();
+            var bathrooms = $("div.bathrooms").find("span.irs-single").text();
+            var garages = $("div.garages").find("span.irs-single").text();
+            var storeys = $("div.storeys").find("span.irs-single").text();
+
+            $.ajax({
+                type: "GET",
+                url: location.origin +  "/api/buildings?",
+                data: "name=" + name + "&maxPrice=" + maxPrice + "&minPrice=" + minPrice +
+                    "&bedrooms=" + bedrooms + "&bathrooms=" + bathrooms + "&garages" + garages +
+                    "&storeys=" + storeys,
+
+                success: function(response){
+                   // var html = "<table class=\"table\">";
+                    //html += "<tr><th>Name</th><th>Price</th><th>Bedrooms</th><th>Bathrooms</th><th>Storeys</th><th>Garage</th></tr>";
+                    var content = '';
+                    response.forEach(function(item){
+                        content += "<tr>"+
+                            "<td>" + item['name'] + "</td>" +
+                            "<td>" + item['price'] + "</td>" +
+                            "<td>" + item['bathrooms'] + "</td>"+
+                            "<td>" + item['bedrooms'] + "</td>" +
+                            "<td>" + item['storeys'] + "</td>"+
+                            "<td>" + item['garages'] + "</td>"+
+                            "</tr>";
+                    });
+                    //html += content.trim().length === 0 ? '<tr><td colspan="6" >No result</td></tr>' : content;
+                  //  html+= "</table>";
+                    $('#table1').append('<p></p>');
+                    $('#table1').empty().append(content);
+                  //  $('#result').append('<p></p>');
+                    //$('#result').empty().append(html);
+                },
+                error: function (xhr, desc, err) {
+                    console.log('error');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
