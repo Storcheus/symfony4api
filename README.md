@@ -6,7 +6,7 @@ cd project-folder/
 
 composer install
 
-set the variables ([db_username],[db_password],[db_name]) in the file .env
+set the variables ([db_username],[db_password],[db_name]) in the file .env  
 DATABASE_URL=mysql://[db_username]:[db_password]@127.0.0.1:3306/[db_name]
 
 bin/console doctrine:migrations:migrate
