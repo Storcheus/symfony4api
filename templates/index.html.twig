@@ -114,8 +114,6 @@
                     "&storeys=" + storeys,
 
                 success: function(response){
-                   // var html = "<table class=\"table\">";
-                    //html += "<tr><th>Name</th><th>Price</th><th>Bedrooms</th><th>Bathrooms</th><th>Storeys</th><th>Garage</th></tr>";
                     var content = '';
                     response.forEach(function(item){
                         content += "<tr>"+
@@ -127,13 +125,9 @@
                             "<td>" + item['garages'] + "</td>"+
                             "</tr>";
                     });
-                    //html += content.trim().length === 0 ? '<tr><td colspan="6" >No result</td></tr>' : content;
-                  //  html+= "</table>";
                     $('#table1').append('<p></p>');
                     $('#table1').empty().append(content);
-                  //  $('#result').append('<p></p>');
-                    //$('#result').empty().append(html);
-                },
+                 },
                 error: function (xhr, desc, err) {
                     console.log('error');
                 }
